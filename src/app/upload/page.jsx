@@ -1,21 +1,12 @@
 "use client"
 import Image from "next/image";
 import React from "react";
-import hero from "@/images/hero.jpg";
-import carpenter from "@/images/carpenter.jpg"
-import woman from "@/images/woman.jpg"
-import obama from "@/images/obama.jpeg"
-import group from "@/images/group.jpeg"
-import group2 from "@/images/group2.jpeg"
-import blackman from "@/images/blackman.jpeg"
-import customerCare from "@/images/customerCare.jpg"
-import lady from "@/images/lady.png"
+import { hero,lady,group,group2,carpenter,customerCare,obama,blackman,woman } from "@/images";
 import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 
 const page = () => {
-  const images = [];
   const handleClick = (e)=>{
     console.log(e.target.checked);
   }
