@@ -2,6 +2,14 @@
 import Image from "next/image";
 import React from "react";
 import hero from "@/images/hero.jpg";
+import carpenter from "@/images/carpenter.jpg"
+import woman from "@/images/woman.jpg"
+import obama from "@/images/obama.jpeg"
+import group from "@/images/group.jpeg"
+import group2 from "@/images/group2.jpeg"
+import blackman from "@/images/blackman.jpeg"
+import customerCare from "@/images/customerCare.jpg"
+import laptop from "@/images/laptop-1.png"
 import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
@@ -32,11 +40,11 @@ const page = () => {
           />
         </div>
       </div>
-       <div className="mb-5">
+       <div className="mb-5 w-full flex justify-center">
           <input
             type="text"
             placeholder="search for uploads using name of staff"
-            className="bg-transparent px-2 py-1 border rounded-xl border-gray-400 xl:w-[25rem]"
+            className="bg-transparent w-full px-2 py-1 border placeholder:text-center focus:border-gray-400 outline-none rounded-xl border-gray-400 xl:w-[25rem]"
           />
         </div>
 
@@ -44,51 +52,51 @@ const page = () => {
       <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl pt-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
         <div className="overflow-y-auto no-scrollbar columns-3 space-y-4">
-          <img
-            src="/hero.jpg"
+          <Image
+            src={carpenter}
             alt="picture1"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <img
-            src="/social.png"
+          <Image
+            src={obama}
             alt="picture2"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <img
-            src="/hero3.jpg"
+          <Image
+            src={laptop}
             alt="picture3"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <img
-            src="/hero2.jpg"
+          <Image
+            src={group}
             alt="picture4"
             className="rounded-[30px] max-sm:rounded-xl"
           />
           <Image
-            src={hero}
+            src={blackman}
             className="rounded-[30px] object-contain max-sm:rounded-xl"
           />
-          <img
-            src="/hero2.jpg"
+          <Image
+            src={group}
             alt="picture4"
             className="rounded-[30px] max-sm:rounded-xl"
           />
           <Image
-            src={hero}
+            src={group2}
             className="rounded-[30px] object-cover max-sm:rounded-xl"
           />
-          <img
-            src="/social.png"
+          <Image
+            src={obama}
             alt="picture2"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <img
-            src="/hero3.jpg"
+          <Image
+            src={woman}
             alt="picture3"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <img
-            src="/hero2.jpg"
+          <Image
+            src={blackman}
             alt="picture4"
             className="rounded-[30px] max-sm:rounded-xl"
           />
@@ -96,13 +104,13 @@ const page = () => {
             src={hero}
             className="rounded-[30px] object-contain max-sm:rounded-xl"
           />
-          <img
-            src="/hero2.jpg"
+          <Image
+            src={customerCare}
             alt="picture4"
             className="rounded-[30px] max-sm:rounded-xl"
           />
           <Image
-            src={hero}
+            src={carpenter}
             className="rounded-[30px] object-contain max-sm:rounded-xl"
           />
         </div>
