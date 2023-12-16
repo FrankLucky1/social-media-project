@@ -4,7 +4,7 @@ import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 export default function Home() {
   return (
-    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center justify-center mix-blend-overlay bg-no-repeat bg-center relative">
+    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center justify-center bg-no-repeat bg-center relative">
       {/* nav */}
       <div className='lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8'>
         <div className="flex items-center justify-center gap-12">

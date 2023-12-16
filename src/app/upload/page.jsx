@@ -43,7 +43,7 @@ const page = () => {
       {/* content */}
       <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl pt-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
-        <div className="overflow-y-auto no-scrollbar columns-3 space-y-4">
+        <div className="overflow-y-auto no-scrollbar columns-2 xl:columns-3 space-y-4">
           <img
             src="/hero.jpg"
             alt="picture1"
