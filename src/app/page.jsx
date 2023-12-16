@@ -50,7 +50,7 @@ export default function Home() {
           <h1 className="text-6xl max-md:text-4xl font-extrabold text-slate-700 ">
             Like comment share <br /> and subscribe
           </h1>
-          <p className="text-gray-500 mb-10">
+          <p className="text-gray-600 mb-10">
             Spread your love and creative beauty into our social life wherever
             you are.
           </p>
