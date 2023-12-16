@@ -9,7 +9,7 @@ import group from "@/images/group.jpeg"
 import group2 from "@/images/group2.jpeg"
 import blackman from "@/images/blackman.jpeg"
 import customerCare from "@/images/customerCare.jpg"
-import laptop1 from "@/images/laptop1.png"
+import lady from "@/images/lady.png"
 import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
@@ -63,7 +63,7 @@ const page = () => {
             className="rounded-[30px] max-sm:rounded-xl"
           />
           <Image
-            src={laptop1}
+            src={lady}
             alt="picture3"
             className="rounded-[30px] max-sm:rounded-xl"
           />
