@@ -53,11 +53,11 @@ const page = () => {
             alt="picture2"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          {/* <Image
+          <Image
             src={lady}
             alt="picture3"
             className="rounded-[30px] max-sm:rounded-xl"
-          /> */}
+          />
           <Image
             src={group}
             alt="picture4"

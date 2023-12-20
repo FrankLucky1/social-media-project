@@ -1,48 +1,109 @@
+"use client"
+import Modal from "@/component/Modal";
 import Image from "next/image";
 import Link from "next/link";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { FiUploadCloud } from "react-icons/fi";
+import { useState } from "react";
 
 export default function Home() {
+  const [isOpen, setisOpen] = useState(false)
+  // const isOpen = true;
   return (
     <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center justify-center bg-no-repeat bg-center relative">
+      {/* upload images */}
+      {isOpen && (
+        <form className="absolute w-full bg-gray-500/50 flex text-center items-center justify-center h-full z-[10000]" >
+          <div className="w-[80%] mx-auto h-[80%] lg:w-[60%] flex items-center pt-5 justify-center bg-white rounded-sm">
+            <div className="inset-0 absolute bg-gray-500/50 w-full h-full z-[-1]" onClick={()=> setisOpen(prev=> !prev)}/>
+            <div className="h-auto lg:w-[50%] w-full flex flex-col gap-4 max-lg:p-3">
+              <div className="w-full flex flex-col items-start mb-2">
+                <label htmlFor="name" className="font-semibold">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter full name"
+                  className="w-full border py-1 px-2 rounded-md bg-gray-200 focus:bg-gray-300 outline-none"
+                />
+              </div>
+              <div className="w-full flex flex-col items-start mb-2">
+                <label htmlFor="name" className="font-semibold">
+                  Comment
+                </label>
+                <textarea
+                  placeholder="Enter comment"
+                  rows={5}
+                  cols={30}
+                  className="w-full focus:bg-gray-300  bg-gray-200 outline-none border min-h-[50px] max-h-32 py-1 px-2 rounded-md"
+                />
+              </div>
+              <div className="h-full w-full flex gap-2 flex-col items-center justify-center py-2 bg-gray-200  rounded-md ">
+                <label
+                  htmlFor="file"
+                  className="w-full flex flex-col items-center justify-center cursor-pointer"
+                >
+                  <FiUploadCloud className="text-6xl" />
+                  click the box to upload your party experience
+                </label>
+                or
+                <input
+                  type="file"
+                  accept=".pdf, .doc, .docx, .xlsx, .csv, .ppt, .png, .jpg, .jpeg"
+                  id="file"
+                  className="max-lg:w-full max-md:ml-3"
+                />
+              </div>
+              <button className="bg-purple-500 text-white p-2 rounded-lg">
+                Upload your images
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+      {/* upload images */}
       {/* nav */}
-      <div className='lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8'>
+      <div className="lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8">
         <div className="flex items-center justify-center gap-12">
-        <Link href={"/"} className="font-bold text-blue-500 lg:text-xl">Wunmi Debbiz</Link>
-        <div className="flex gap-3 items-center max-sm:hidden">
-          <span className="hover:mb-1 w-26 font-semibold text-center cursor-pointer  duration-100 ease-in">
-            Join Us
-          </span>
-          <p>or</p>
-          <Link href={"/upload"} className="text-white hover:font-semibold w-28 text-center cursor-pointer rounded-md py-2 bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400  duration-100 ease-in">
-            Share a post
+          <Link href={"/"} className="font-bold text-blue-500 lg:text-xl">
+            Wunmi Debbiz
           </Link>
-        </div>
+          <div className="flex gap-3 items-center max-sm:hidden">
+            <span className="hover:mb-1 w-26 font-semibold text-center cursor-pointer  duration-100 ease-in">
+              Join Us
+            </span>
+            <p>or</p>
+            <Link
+              href={"/upload"}
+              className="text-white hover:font-semibold w-28 text-center cursor-pointer rounded-md py-2 bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400  duration-100 ease-in"
+            >
+              View posts
+            </Link>
+          </div>
         </div>
         <div className="flex gap-1">
           <MdOutlineLightMode className="text-2xl" />
-            <label className="switch">
-              <input type="checkbox" />
-              <span class="slider round"></span>
-            </label>
-            <MdDarkMode className="text-2xl" />
-          </div>
+          <label className="switch">
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+          <MdDarkMode className="text-2xl" />
+        </div>
       </div>
       {/* nav */}
       {/* <svg className='absolute bottom-0 z-[-1]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e7008a" fill-opacity="1" d="M0,96L30,96C60,96,120,96,180,128C240,160,300,224,360,224C420,224,480,160,540,149.3C600,139,660,181,720,181.3C780,181,840,139,900,149.3C960,160,1020,224,1080,256C1140,288,1200,288,1260,250.7C1320,213,1380,139,1410,101.3L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg> */}
       <div className="max-lg:h-32">
-      <svg
-        className="absolute -bottom-1 z-[-1] max-lg:h- object-cover w-full"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1440 320"
-      >
-        <path
-          fill="#0099ff"
-          fill-opacity="1"
-          d="M0,96L30,96C60,96,120,96,180,128C240,160,300,224,360,224C420,224,480,160,540,149.3C600,139,660,181,720,181.3C780,181,840,139,900,149.3C960,160,1020,224,1080,256C1140,288,1200,288,1260,250.7C1320,213,1380,139,1410,101.3L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
-        ></path>
-      </svg>
-
+        <svg
+          className="absolute -bottom-1 z-[-1] max-lg:h- object-cover w-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+        >
+          <path
+            fill="#0099ff"
+            fill-opacity="1"
+            d="M0,96L30,96C60,96,120,96,180,128C240,160,300,224,360,224C420,224,480,160,540,149.3C600,139,660,181,720,181.3C780,181,840,139,900,149.3C960,160,1020,224,1080,256C1140,288,1200,288,1260,250.7C1320,213,1380,139,1410,101.3L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
+          ></path>
+        </svg>
       </div>
 
       <div className="w-full flex max-lg:flex-col lg:px-12 h-full items-center justify-center lg:justify-between max-md:px-3 max-sm:pt-16 max-lg:pt-28">
@@ -55,9 +116,12 @@ export default function Home() {
             you are.
           </p>
           <div className="flex max-lg:mt-28">
-            <Link href={"/upload"}  className="px-10 py-4 rounded-full font-semibold shadow-2xl bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 hover:bg-blue-600 text-white ">
+            <span
+             onClick={()=> setisOpen(prev=> !prev)}
+              className="px-10 py-4 rounded-full font-semibold shadow-2xl bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 hover:bg-blue-600 text-white "
+            >
               Share a post
-            </Link>
+            </span>
           </div>
         </div>
         <div className="w-full h-full lg:flex-[1.3] flex items-end justify-center max-lg:hidden">
