@@ -22,8 +22,6 @@ const page = () => {
     try {
       // console.log("hello");
       const response = await axios.get(`${url}/posts`, {
-         
-      method: "get",
       headers: {
           "Content-Type": "application/json",
          },

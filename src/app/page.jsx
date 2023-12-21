@@ -48,8 +48,10 @@ export default function Home() {
           },
         }
       );
-      console.log(response);
-      if(response?.data?.status === 200){
+      console.log(response?.status);
+      if(response?.status === 201){
+        setLoading(false)
+        setisOpen(false)
         toast('Uploaded succesfully ✅', {
           position: "top-center",
           autoClose: 5000,
@@ -173,7 +175,7 @@ export default function Home() {
           <MdOutlineLightMode className="text-2xl" />
           <label className="switch">
             <input type="checkbox" />
-            <span class="slider round"></span>
+            <span className="slider round"></span>
           </label>
           <MdDarkMode className="text-2xl" />
         </div>
@@ -188,7 +190,7 @@ export default function Home() {
         >
           <path
             fill="#0099ff"
-            fill-opacity="1"
+            fillOpacity="1"
             d="M0,96L30,96C60,96,120,96,180,128C240,160,300,224,360,224C420,224,480,160,540,149.3C600,139,660,181,720,181.3C780,181,840,139,900,149.3C960,160,1020,224,1080,256C1140,288,1200,288,1260,250.7C1320,213,1380,139,1410,101.3L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
           ></path>
         </svg>
@@ -218,6 +220,7 @@ export default function Home() {
         <div className="w-full h-full lg:flex-[1.3] flex items-end justify-center max-lg:hidden">
           <Image
             src={"/social2.png"}
+            alt="hero"
             width={720}
             height={820}
             className="w-full h-[90%] max-lg:w-[95%] max-sm:object-cover max-lg:h-[70%]"
