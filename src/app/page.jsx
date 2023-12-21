@@ -7,18 +7,19 @@ import { FiUploadCloud } from "react-icons/fi";
 import { useState } from "react";
 import axios from "axios";
 import { headers } from "../../next.config";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
+  
+ const url = process.env.NEXT_PUBLIC_API_BASE_URL
   const [isOpen, setisOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     name: "",
     comment: "",
     photo: "",
   });
-  const [photo, setPhoto] = useState();
-  // const isOpen = true;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
@@ -31,30 +32,51 @@ export default function Home() {
         setData({ ...data, photo: e.target.result});
         // console.log(data);
       }
-      setPhoto(file);
-      // const formData = new FormData
-      // formData.append("file", file);
-      // setData({...data, photo: formData})
-      // console.log(formData);
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
+      setLoading(true)
       const response = await axios.post(
-        "http://localhost:3310/create",
+        `${url}/create`,
         data,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", 
           },
         }
       );
       console.log(response);
+      if(response?.data?.status === 200){
+        toast('Uploaded succesfully ✅', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",})
+      }
       return response;
     } catch (error) {
       console.log(error);
+      setisOpen(false)
+      setLoading(false)
+      if(error){
+        toast('Something went wrong ❌', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",})
+      }
+      
     }
   };
 
@@ -114,14 +136,14 @@ export default function Home() {
                   type="file"
                   name="photo"
                   required
-                  accept=".pdf, .doc, .docx, .xlsx, .csv, .ppt, .png, .jpg, .jpeg"
+                  accept=".png, .jpg, .jpeg, .mp4  "
                   id="file"
                   onChange={handleChange}
                   className="max-lg:w-full max-md:ml-3"
                 />
               </div>
               <button className="bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 text-white p-2 rounded-lg">
-                Upload your images
+               {loading ? "Uploading..." : "Upload your images"}
               </button>
             </div>
           </div>

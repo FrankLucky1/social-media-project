@@ -10,18 +10,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const page = () => {
-
+ const url = process.env.NEXT_PUBLIC_API_BASE_URL
   const [data, setData] = useState()
   const handleClick = (e)=>{
     console.log(e.target.checked);
   }
   
   useEffect(() => {
-    console.log("hi");
+    // console.log("hi");
   const getContent = async ()=>{
     try {
-      console.log("hello");
-      const response = await axios.get("http://localhost:3310/posts", {
+      // console.log("hello");
+      const response = await axios.get(`${url}/posts`, {
          
       method: "get",
       headers: {
@@ -30,9 +30,9 @@ const page = () => {
       })
       console.log(response);
       setData(response?.data?.data)
-     if(response?.data?.status === 200) toast('🦄 Wow so easy!', {
+     if(response?.data?.status === 200) toast('Welcome to Sunset Sizzle ', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -43,9 +43,9 @@ const page = () => {
       // return response
      } catch (error) {
      if(error){
-      toast('🦄 DB not connected!', {
+      toast('Unable to get data, try again', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
