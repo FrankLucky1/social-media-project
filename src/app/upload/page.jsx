@@ -1,53 +1,150 @@
 "use client"
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { hero,lady,group,group2,carpenter,customerCare,obama,blackman,woman } from "@/images";
 import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const page = () => {
+
+  const [data, setData] = useState()
   const handleClick = (e)=>{
     console.log(e.target.checked);
   }
+  
+  useEffect(() => {
+    console.log("hi");
+  const getContent = async ()=>{
+    try {
+      console.log("hello");
+      const response = await axios.get("http://localhost:3310/posts", {
+         
+      method: "get",
+      headers: {
+          "Content-Type": "application/json",
+         },
+      })
+      console.log(response);
+      setData(response?.data?.data)
+     if(response?.data?.status === 200) toast('🦄 Wow so easy!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      // return response
+     } catch (error) {
+     if(error){
+      toast('🦄 DB not connected!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+     }
+     }
+    }
+    getContent()
+  }, [])
+  
   return (
     <div className="w-full h-screen text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
+      <ToastContainer/>
       <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 gap-3">
-        <Link href={"/"}>Wunmi debbiz</Link>
-        <div className="flex justify-center items-center">
+        <Link href={"/"}>Sunset Sizzle</Link>
+        <div className="flex justify-center items-center gap-4">
           <div className="flex gap-1">
           <MdOutlineLightMode className="text-2xl" />
             <label className="switch">
               <input type="checkbox" onChange={handleClick} />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
             <MdDarkMode className="text-2xl" />
           </div>
           <Image
             src={"/social.png"}
+            alt="profile"
             width={50}
             height={50}
             className="rounded-full object-cover"
           />
         </div>
       </div>
-       <div className="mb-5 w-full flex justify-center">
+       {/* <div className="mb-5 w-full flex justify-center">
           <input
             type="text"
             placeholder="search for uploads using name of staff"
             className="bg-transparent w-full px-2 py-1 border placeholder:text-center focus:border-gray-400 outline-none rounded-xl border-gray-400 xl:w-[25rem]"
           />
-        </div>
+        </div> */}
 
       {/* content */}
-      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl pt-10 px-4 flex flex-col justify-center items-start gap-3">
+      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
-        <div className="overflow-y-auto no-scrollbar columns-3 space-y-4">
-          <Image
-            src={carpenter}
-            alt="picture1"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
+        <div className="overflow-y-auto no-scrollbar columns-3 max-md:columns-2 space-y-4">
+          {data?.map((item)=> (
+            <div key={item?._id} className="w-auto group h-auto rounded-[30px] relative ">
+            <Image
+              src={item?.photo}
+              width={500}
+              height={500}
+              alt="picture1"
+              className="xl:rounded-[30px]  max-sm:rounded-xl"
+            />
+            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+              <span className="flex max-md:text-xs items-center justify-start gap-2">
+                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
+                <p className="capitalize xl:text-xl">{item?.name}</p>
+              </span>
+              <p className="max-md:text-[7px]">{item?.comment}</p>
+            </div>
+
+          </div>
+          ))}
+          <div className="w-auto group h-auto rounded-[30px] relative ">
+            <Image
+              src={carpenter}
+              alt="picture1"
+              className="xl:rounded-[30px]  max-sm:rounded-xl"
+            />
+            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+              <span className="flex max-md:text-xs items-center justify-start gap-2">
+                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
+                <p>Frank Lucky</p>
+              </span>
+              <p className="max-md:text-[7px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab consequatur to</p>
+            </div>
+
+          </div>
+          <div className="w-auto group h-auto rounded-[30px] relative ">
+            <Image
+              src={group2}
+              alt="picture1"
+              className="xl:rounded-[30px]  max-sm:rounded-xl"
+            />
+            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+              <span className="flex max-md:text-xs items-center justify-start gap-2">
+                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
+                <p>Frank Lucky</p>
+              </span>
+              <p className="max-md:text-[7px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab consequatur to</p>
+            </div>
+
+          </div>
+        
+        
           <Image
             src={obama}
             alt="picture2"
@@ -58,52 +155,7 @@ const page = () => {
             alt="picture3"
             className="rounded-[30px] max-sm:rounded-xl"
           />
-          <Image
-            src={group}
-            alt="picture4"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={blackman}
-            className="rounded-[30px] object-contain max-sm:rounded-xl"
-          />
-          <Image
-            src={group}
-            alt="picture4"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={group2}
-            className="rounded-[30px] object-cover max-sm:rounded-xl"
-          />
-          <Image
-            src={obama}
-            alt="picture2"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={woman}
-            alt="picture3"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={blackman}
-            alt="picture4"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={hero}
-            className="rounded-[30px] object-contain max-sm:rounded-xl"
-          />
-          <Image
-            src={customerCare}
-            alt="picture4"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={carpenter}
-            className="rounded-[30px] object-contain max-sm:rounded-xl"
-          />
+        
         </div>
       </div>
     </div>

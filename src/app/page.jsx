@@ -1,21 +1,77 @@
-"use client"
+"use client";
 import Modal from "@/component/Modal";
 import Image from "next/image";
 import Link from "next/link";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { FiUploadCloud } from "react-icons/fi";
 import { useState } from "react";
+import axios from "axios";
+import { headers } from "../../next.config";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
-  const [isOpen, setisOpen] = useState(false)
+  const [isOpen, setisOpen] = useState(false);
+  const [data, setData] = useState({
+    name: "",
+    comment: "",
+    photo: "",
+  });
+  const [photo, setPhoto] = useState();
   // const isOpen = true;
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+
+    if (e.target.name === "photo") {
+      const file = e.target.files[0];
+      const reader = new FileReader()
+      const image = reader.readAsDataURL(file)
+      reader.onload = (e) => {
+        // console.log(e.target.result)
+        setData({ ...data, photo: e.target.result});
+        // console.log(data);
+      }
+      setPhoto(file);
+      // const formData = new FormData
+      // formData.append("file", file);
+      // setData({...data, photo: formData})
+      // console.log(formData);
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post(
+        "http://localhost:3310/create",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center justify-center bg-no-repeat bg-center relative">
+    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center ease-in  justify-center bg-no-repeat bg-center relative">
+      <ToastContainer />
       {/* upload images */}
       {isOpen && (
-        <form className="absolute w-full bg-gray-500/50 flex text-center items-center justify-center h-full z-[10000]" >
+        <form
+          onSubmit={handleSubmit}
+          className="absolute w-full bg-gray-500/50 flex text-center items-center justify-center h-full z-[10000]"
+        >
           <div className="w-[80%] mx-auto h-[80%] lg:w-[60%] flex items-center pt-5 justify-center bg-white rounded-sm">
-            <div className="inset-0 absolute bg-gray-500/50 w-full h-full z-[-1]" onClick={()=> setisOpen(prev=> !prev)}/>
+            <div
+              className="inset-0 absolute bg-gray-500/50 w-full h-full z-[-1]"
+              onClick={() => setisOpen((prev) => !prev)}
+            />
             <div className="h-auto lg:w-[50%] w-full flex flex-col gap-4 max-lg:p-3">
               <div className="w-full flex flex-col items-start mb-2">
                 <label htmlFor="name" className="font-semibold">
@@ -23,7 +79,10 @@ export default function Home() {
                 </label>
                 <input
                   type="text"
+                  required
                   placeholder="Enter full name"
+                  name="name"
+                  onChange={handleChange}
                   className="w-full border py-1 px-2 rounded-md bg-gray-200 focus:bg-gray-300 outline-none"
                 />
               </div>
@@ -33,12 +92,16 @@ export default function Home() {
                 </label>
                 <textarea
                   placeholder="Enter comment"
+                  maxLength={"75"}
+                  name="comment"
+                  required
+                  onChange={handleChange}
                   rows={5}
                   cols={30}
                   className="w-full focus:bg-gray-300  bg-gray-200 outline-none border min-h-[50px] max-h-32 py-1 px-2 rounded-md"
                 />
               </div>
-              <div className="h-full w-full flex gap-2 flex-col items-center justify-center py-2 bg-gray-200  rounded-md ">
+              <div className="h-full w-full flex gap-7 flex-col items-center justify-center py-2 bg-gray-200  rounded-md ">
                 <label
                   htmlFor="file"
                   className="w-full flex flex-col items-center justify-center cursor-pointer"
@@ -46,15 +109,18 @@ export default function Home() {
                   <FiUploadCloud className="text-6xl" />
                   click the box to upload your party experience
                 </label>
-                or
+
                 <input
                   type="file"
+                  name="photo"
+                  required
                   accept=".pdf, .doc, .docx, .xlsx, .csv, .ppt, .png, .jpg, .jpeg"
                   id="file"
+                  onChange={handleChange}
                   className="max-lg:w-full max-md:ml-3"
                 />
               </div>
-              <button className="bg-purple-500 text-white p-2 rounded-lg">
+              <button className="bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 text-white p-2 rounded-lg">
                 Upload your images
               </button>
             </div>
@@ -65,8 +131,8 @@ export default function Home() {
       {/* nav */}
       <div className="lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8">
         <div className="flex items-center justify-center gap-12">
-          <Link href={"/"} className="font-bold text-blue-500 lg:text-xl">
-            Wunmi Debbiz
+          <Link href={"/"} className="font-bold text-blue-500 lg:text-2xl">
+            Sunset Sizzle
           </Link>
           <div className="flex gap-3 items-center max-sm:hidden">
             <span className="hover:mb-1 w-26 font-semibold text-center cursor-pointer  duration-100 ease-in">
@@ -107,18 +173,21 @@ export default function Home() {
       </div>
 
       <div className="w-full flex max-lg:flex-col lg:px-12 h-full items-center justify-center lg:justify-between max-md:px-3 max-sm:pt-16 max-lg:pt-28">
-        <div className="flex gap-4 lg:py-12 pt-10 flex-1 flex-col items-center lg:items-start lg:justify-center max-lg:text-center h-full w-full">
-          <h1 className="text-6xl max-md:text-4xl font-extrabold text-slate-700 ">
+        <div className="flex lg:py-12 pt-10 flex-1 flex-col items-center lg:items-start lg:justify-center max-lg:text-center h-full w-full">
+          <h1 className="text-6xl mb-4 max-md:text-4xl font-extrabold text-slate-700 ">
             Like comment share <br /> and subscribe
           </h1>
-          <p className="text-gray-600 mb-10">
-            Spread your love and creative beauty into our social life wherever
-            you are.
+          <p className="text-gray-600">
+            Spread your love and creative beauty into our social{" "}
+            <span className="text-blue-500 font-semibold">Sunset Sizzle</span>.
           </p>
+          <span className="text-gray-600 mb-3">
+            Theme: Dress to get <span className="font-semibold">"WET"</span>
+          </span>
           <div className="flex max-lg:mt-28">
             <span
-             onClick={()=> setisOpen(prev=> !prev)}
-              className="px-10 py-4 rounded-full font-semibold shadow-2xl bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 hover:bg-blue-600 text-white "
+              onClick={() => setisOpen((prev) => !prev)}
+              className="px-10 cursor-pointer py-4 rounded-full font-semibold shadow-2xl bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 hover:bg-blue-600 text-white "
             >
               Share a post
             </span>
