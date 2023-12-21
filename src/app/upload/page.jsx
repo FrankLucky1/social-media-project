@@ -6,12 +6,13 @@ import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const page = () => {
  const url = process.env.NEXT_PUBLIC_API_BASE_URL
   const [data, setData] = useState()
+  const [loading, setLoading] = useState(false)
   const handleClick = (e)=>{
     console.log(e.target.checked);
   }
@@ -21,6 +22,7 @@ const page = () => {
   const getContent = async ()=>{
     try {
       // console.log("hello");
+      setLoading(true)
       const response = await axios.get(`${url}/posts`, {
       headers: {
           "Content-Type": "application/json",
@@ -28,7 +30,8 @@ const page = () => {
       })
       console.log(response);
       setData(response?.data?.data)
-     if(response?.data?.status === 200) toast('Welcome to Sunset Sizzle ', {
+     if(response?.data?.status === 200){ 
+      toast('Welcome to Sunset Sizzle ', {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -37,7 +40,9 @@ const page = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+        })
+      setLoading(false)
+      }
       // return response
      } catch (error) {
      if(error){
@@ -51,7 +56,10 @@ const page = () => {
         progress: undefined,
         theme: "light",
         });
+        setLoading(false)
      }
+     }finally{
+      setLoading(false)
      }
     }
     getContent()
@@ -59,7 +67,7 @@ const page = () => {
   
   return (
     <div className="w-full h-screen text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
-      <ToastContainer/>
+     
       <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 gap-3">
         <Link href={"/"}>Sunset Sizzle</Link>
         <div className="flex justify-center items-center gap-4">
@@ -92,16 +100,21 @@ const page = () => {
       <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
         <div className="overflow-y-auto no-scrollbar columns-3 max-md:columns-2 space-y-4">
-          {data?.map((item)=> (
-            <div key={item?._id} className="w-auto group h-auto rounded-[30px] relative ">
+          {!data && !loading && (
+            <p className="text-xl">No data available</p>
+          )}
+          {loading ? (
+            <div>Loading...</div>
+          ) : (data?.map((item)=> (
+            <div key={item?._id} className="w-auto group h-auto rounded-xl relative ">
             <Image
               src={item?.photo}
               width={500}
               height={500}
               alt="picture1"
-              className="xl:rounded-[30px]  max-sm:rounded-xl"
+              className="rounded-xl max-sm:rounded-xl"
             />
-            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+            <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
               <span className="flex max-md:text-xs items-center justify-start gap-2">
                 <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
                 <p className="capitalize xl:text-xl">{item?.name}</p>
@@ -110,50 +123,9 @@ const page = () => {
             </div>
 
           </div>
-          ))}
-          <div className="w-auto group h-auto rounded-[30px] relative ">
-            <Image
-              src={carpenter}
-              alt="picture1"
-              className="xl:rounded-[30px]  max-sm:rounded-xl"
-            />
-            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
-              <span className="flex max-md:text-xs items-center justify-start gap-2">
-                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
-                <p>Frank Lucky</p>
-              </span>
-              <p className="max-md:text-[7px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab consequatur to</p>
-            </div>
-
-          </div>
-          <div className="w-auto group h-auto rounded-[30px] relative ">
-            <Image
-              src={group2}
-              alt="picture1"
-              className="xl:rounded-[30px]  max-sm:rounded-xl"
-            />
-            <div className="absolute rounded-b-xl xl:rounded-b-[30px] group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
-              <span className="flex max-md:text-xs items-center justify-start gap-2">
-                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
-                <p>Frank Lucky</p>
-              </span>
-              <p className="max-md:text-[7px]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab consequatur to</p>
-            </div>
-
-          </div>
-        
-        
-          <Image
-            src={obama}
-            alt="picture2"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-          <Image
-            src={lady}
-            alt="picture3"
-            className="rounded-[30px] max-sm:rounded-xl"
-          />
-        
+          )))
+        }
+       
         </div>
       </div>
     </div>

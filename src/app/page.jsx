@@ -83,8 +83,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center ease-in  justify-center bg-no-repeat bg-center relative">
-      <ToastContainer />
+    <main className="flex w-full h-screen max-lg:bg-[url('/social.png')] items-center ease-in  justify-center bg-no-repeat bg-bottom relative">
+      {/* <ToastContainer /> */}
       {/* upload images */}
       {isOpen && (
         <form
@@ -184,7 +184,7 @@ export default function Home() {
       {/* <svg className='absolute bottom-0 z-[-1]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e7008a" fill-opacity="1" d="M0,96L30,96C60,96,120,96,180,128C240,160,300,224,360,224C420,224,480,160,540,149.3C600,139,660,181,720,181.3C780,181,840,139,900,149.3C960,160,1020,224,1080,256C1140,288,1200,288,1260,250.7C1320,213,1380,139,1410,101.3L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg> */}
       <div className="max-lg:h-32">
         <svg
-          className="absolute -bottom-1 z-[-1] max-lg:h- object-cover w-full"
+          className="absolute -bottom-1 lg:z-[-1] z-[10]  object-cover w-full"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
         >
@@ -197,8 +197,8 @@ export default function Home() {
       </div>
 
       <div className="w-full flex max-lg:flex-col lg:px-12 h-full items-center justify-center lg:justify-between max-md:px-3 max-sm:pt-16 max-lg:pt-28">
-        <div className="flex lg:py-12 pt-10 flex-1 flex-col items-center lg:items-start lg:justify-center max-lg:text-center h-full w-full">
-          <h1 className="text-6xl mb-4 max-md:text-4xl font-extrabold text-slate-700 ">
+        <div className="flex lg:py-12 flex-1 flex-col items-center lg:items-start lg:justify-center max-lg:text-center h-full w-full">
+          <h1 className="text-6xl mb-4 max-md:text-5xl font-extrabold text-slate-700 ">
             Like comment share <br /> and subscribe
           </h1>
           <p className="text-gray-600">
@@ -208,7 +208,7 @@ export default function Home() {
           <span className="text-gray-600 mb-3">
             Theme: Dress to get <span className="font-semibold">"WET"</span>
           </span>
-          <div className="flex max-lg:mt-28">
+          <div className="flex max-lg:mt-2">
             <span
               onClick={() => setisOpen((prev) => !prev)}
               className="px-10 cursor-pointer py-4 rounded-full font-semibold shadow-2xl bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 hover:bg-blue-600 text-white "
