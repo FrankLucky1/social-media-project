@@ -11,8 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
-  
- const url = process.env.NEXT_PUBLIC_API_BASE_URL
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [isOpen, setisOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -25,34 +24,30 @@ export default function Home() {
 
     if (e.target.name === "photo") {
       const file = e.target.files[0];
-      const reader = new FileReader()
-      const image = reader.readAsDataURL(file)
+      const reader = new FileReader();
+      const image = reader.readAsDataURL(file);
       reader.onload = (e) => {
         // console.log(e.target.result)
-        setData({ ...data, photo: e.target.result});
+        setData({ ...data, photo: e.target.result });
         // console.log(data);
-      }
+      };
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      setLoading(true)
-      const response = await axios.post(
-        `${url}/create`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json", 
-          },
-        }
-      );
+      setLoading(true);
+      const response = await axios.post(`${url}/create`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log(response?.status);
-      if(response?.status === 201){
-        setLoading(false)
-        setisOpen(false)
-        toast('Uploaded succesfully ✅', {
+      if (response?.status === 201) {
+        setLoading(false);
+        setisOpen(false);
+        toast("Uploaded succesfully ✅", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -60,15 +55,16 @@ export default function Home() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",})
+          theme: "light",
+        });
       }
       return response;
     } catch (error) {
       console.log(error);
-      setisOpen(false)
-      setLoading(false)
-      if(error){
-        toast('Something went wrong ❌', {
+      setisOpen(false);
+      setLoading(false);
+      if (error) {
+        toast("Something went wrong ❌", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,
@@ -76,9 +72,9 @@ export default function Home() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",})
+          theme: "light",
+        });
       }
-      
     }
   };
 
@@ -118,7 +114,6 @@ export default function Home() {
                   placeholder="Enter comment"
                   maxLength={"75"}
                   name="comment"
-                  required
                   onChange={handleChange}
                   rows={5}
                   cols={30}
@@ -132,13 +127,16 @@ export default function Home() {
                 >
                   <FiUploadCloud className="text-6xl" />
                   click the box to upload your party experience
-                <p className="text-sm text-gray-400">upload size should not be more that 3mb*</p>
+                  <p className="text-sm text-gray-400">
+                    upload size should not be more that 3mb*
+                  </p>
                 </label>
 
                 <input
                   type="file"
                   name="photo"
                   required
+                  // multiple
                   accept=".png, .jpg, .jpeg"
                   id="file"
                   onChange={handleChange}
@@ -146,7 +144,7 @@ export default function Home() {
                 />
               </div>
               <button className="bg-gradient-to-br from-purple-500 via-purple-400 to-violet-400 text-white p-2 rounded-lg">
-               {loading ? "Uploading..." : "Upload your images"}
+                {loading ? "Uploading..." : "Upload your images"}
               </button>
             </div>
           </div>
@@ -156,7 +154,10 @@ export default function Home() {
       {/* nav */}
       <div className="lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8">
         <div className="flex items-center justify-center gap-12">
-          <Link href={"/upload"} className="font-bold text-blue-500 lg:text-2xl">
+          <Link
+            href={"/upload"}
+            className="font-bold text-blue-500 lg:text-2xl"
+          >
             Sunset Sizzle
           </Link>
           <div className="flex gap-3 items-center max-sm:hidden">
