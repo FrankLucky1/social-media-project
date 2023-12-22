@@ -100,7 +100,7 @@ const page = () => {
       <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
         <div className="overflow-y-auto no-scrollbar columns-3 max-md:columns-2 space-y-4">
-          {!data && !loading && (
+          {data?.length < 1 && !loading && (
             <p className="text-xl">No data available</p>
           )}
           {loading ? (
