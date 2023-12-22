@@ -12,10 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 const page = () => {
  const url = process.env.NEXT_PUBLIC_API_BASE_URL
   const [data, setData] = useState()
+  const [oneData, setOneData] = useState()
+  const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const handleClick = (e)=>{
-    console.log(e.target.checked);
-  }
+  // const handleClick = (e)=>{
+  //   console.log(e.target.checked);
+  // }
   
   useEffect(() => {
     // console.log("hi");
@@ -65,9 +67,43 @@ const page = () => {
     getContent()
   }, [])
   
+  const handleClick = (e) => {
+    console.log(e.target.id);
+    setIsOpen(true)
+    const id = e.target.id;
+
+    const oneImage = data.filter(item => item._id === id)
+    console.log(oneImage[0]);
+    setOneData(oneImage)
+  }
   return (
-    <div className="w-full h-screen text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
-     
+    <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
+       {isOpen && (
+        <div
+        onClick={()=>setIsOpen(false)}
+          className="absolute w-full bg-black/90 flex text-center items-center justify-center h-full  z-[10000]"
+        >
+          { oneData.map(item => (
+          <div className="p-3 flex flex-col items-center justify-center w-[350px]">
+          <Image
+              src={item?.photo}
+              id={item?._id}
+              width={350}
+              height={350}
+              alt="picture1"
+              className="w-auto max-h-[70vh]"
+            />
+            <div className="rounded-b-xl flex flex-col items-start justify-start bg-gray-700/80 max-md:h-[4rem] w-full px-2 xl:px-5 xl:py-4 py-3 gap-1 xl:gap-2">
+              <span className="flex max-md:text-xs items-start justify-start gap-2">
+               
+                <p className="capitalize xl:text-xl">Posted by: {item?.name}</p>
+              </span>
+              <p className="max-md:text-[10px] ">{item?.comment}</p>
+            </div>
+            </div>)
+            )}
+ 
+        </div>)}
       <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 gap-3">
         <Link href={"/"}>Sunset Sizzle</Link>
         <div className="flex justify-center items-center gap-4">
@@ -106,9 +142,11 @@ const page = () => {
           {loading ? (
             <div>Loading...</div>
           ) : (data?.map((item)=> (
-            <div key={item?._id} className="w-auto group h-auto rounded-xl relative ">
+            <div key={item?._id}  id={item?._id} className="w-auto group h-auto rounded-xl relative ">
             <Image
               src={item?.photo}
+              id={item?._id}
+              onClick={(e)=>handleClick(e)}
               width={500}
               height={500}
               alt="picture1"
@@ -116,7 +154,7 @@ const page = () => {
             />
             <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
               <span className="flex max-md:text-xs items-center justify-start gap-2">
-                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center text-white text-[9px] h-4 w-4 font-semibold rounded-full">F</p>
+                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">{item.name[0]}</p>
                 <p className="capitalize xl:text-xl">{item?.name}</p>
               </span>
               <p className="max-md:text-[7px]">{item?.comment}</p>
