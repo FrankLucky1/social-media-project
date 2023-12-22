@@ -132,13 +132,14 @@ export default function Home() {
                 >
                   <FiUploadCloud className="text-6xl" />
                   click the box to upload your party experience
+                <p className="text-sm text-gray-400">upload size should not be more that 3mb*</p>
                 </label>
 
                 <input
                   type="file"
                   name="photo"
                   required
-                  accept=".png, .jpg, .jpeg, .mp4  "
+                  accept=".png, .jpg, .jpeg"
                   id="file"
                   onChange={handleChange}
                   className="max-lg:w-full max-md:ml-3"
@@ -155,7 +156,7 @@ export default function Home() {
       {/* nav */}
       <div className="lg:w-[1300px] w-full absolute top-0 max-md:shadow-sm max-md: flex justify-between gap-8 p-4 lg:py-8">
         <div className="flex items-center justify-center gap-12">
-          <Link href={"/"} className="font-bold text-blue-500 lg:text-2xl">
+          <Link href={"/upload"} className="font-bold text-blue-500 lg:text-2xl">
             Sunset Sizzle
           </Link>
           <div className="flex gap-3 items-center max-sm:hidden">
