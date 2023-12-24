@@ -45,6 +45,7 @@ const page = () => {
         });
         console.log(response);
         setData(response?.data?.data);
+        console.log(data?.length);
         if (response?.data?.status === 200) {
           toast("Welcome to Sunset Sizzle ", {
             position: "top-center",
@@ -75,6 +76,8 @@ const page = () => {
         }
       } finally {
         setLoading(false);
+        
+        console.log(data);
       }
     };
     getContent();
@@ -90,7 +93,7 @@ const page = () => {
     setOneData(oneImage);
   };
   return (
-    <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
+    <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-2 justify-start">
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -118,7 +121,7 @@ const page = () => {
           ))}
         </div>
       )}
-      <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 gap-3">
+      <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 px-2 gap-3">
         <Link href={"/"}>Sunset Sizzle</Link>
         <div className="flex justify-center items-center gap-4">
           <div className="flex gap-1">
@@ -147,12 +150,11 @@ const page = () => {
         </div> */}
 
       {/* content */}
-      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-4 flex flex-col justify-center items-start gap-3">
+      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-2 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
-        <div className="overflow-y-auto w-full no-scrollbar columns-3 max-md:columns-2 space-y-4">
-        
-          {data?.length < 1 && !loading && (
-            <p className="text-xl">No data available</p>
+        <div className="overflow-y-auto w-full no-scrollbar columns-3 max-md:columns-1 space-y-4">
+          {!data && !loading && (
+            <p className="lg:text-xl">No data available</p>
           )}
           {loading ? (
             <div>Loading...</div>
@@ -163,39 +165,43 @@ const page = () => {
                 id={item?._id}
                 className="w-auto group h-auto rounded-xl relative "
               >
-               {item?.photo.length > 0 ? ( <Image
-                  src={item?.photo}
-                  id={item?._id}
-                  onClick={(e) => handleClick(e)}
-                  width={500}
-                  height={500}
-                  alt="picture1"
-                  className="rounded-xl max-sm:rounded-xl"
-                />) : (
+                {item?.photo.length > 0 ? (
+                  <Image
+                    src={item?.photo}
+                    id={item?._id}
+                    onClick={(e) => handleClick(e)}
+                    width={500}
+                    height={500}
+                    alt="picture1"
+                    className="rounded-xl max-sm:rounded-xl"
+                  />
+                ) : (
                   <div className="h-auto w-full relative">
-                  <video loop muted controls id="bg-video" className="rounded-xl">
-                    <source src={item?.video} type="video/mp4" />
-                  </video>
-                  {/* <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+                    <video loop controls id="bg-video" className="rounded-t-xl">
+                      <source src={item?.video} type="video/mp4" />
+                    </video>
+                    <div className="rounded-b-xl xl:rounded-b-xl group-hover:flex max-lg:hover:flex flex-col bottom-0 bg-gray-500/90 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+                      <span className="flex max-md:text-xs items-center justify-start gap-2">
+                        <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
+                          {item.name[0]}
+                        </p>
+                        <p className="capitalize xl:text-xl">{item?.name}</p>
+                      </span>
+                      <p className="max-md:text-[7px]">{item?.comment}</p>
+                    </div>
+                  </div>
+                )}
+                {item?.photo && (
+                  <div className="absolute rounded-b-xl xl:rounded-b-xl xl:group-hover:flex max-md:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 h-auto w-full px-2 xl:px-5 xl:py-4 py-2">
                     <span className="flex max-md:text-xs items-center justify-start gap-2">
                       <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
-                      {item.name[0]}
+                        {item.name[0]}
                       </p>
                       <p className="capitalize xl:text-xl">{item?.name}</p>
                     </span>
                     <p className="max-md:text-[7px]">{item?.comment}</p>
-                  </div> */}
-                </div>
+                  </div>
                 )}
-               {item?.photo && <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 h-auto w-full px-2 xl:px-5 xl:py-4 py-2">
-                  <span className="flex max-md:text-xs items-center justify-start gap-2">
-                    <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
-                      {item.name[0]}
-                    </p>
-                    <p className="capitalize xl:text-xl">{item?.name}</p>
-                  </span>
-                  <p className="max-md:text-[7px]">{item?.comment}</p>
-                </div>}
               </div>
             ))
           )}
