@@ -18,6 +18,7 @@ export default function Home() {
     name: "",
     comment: "",
     photo: "",
+    video: ""
   });
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -26,11 +27,34 @@ export default function Home() {
       const file = e.target.files[0];
       const reader = new FileReader();
       const image = reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        // console.log(e.target.result)
-        setData({ ...data, photo: e.target.result });
-        // console.log(data);
-      };
+     
+
+     
+        if (file.type.match("image.*")) return (
+          reader.onload = (e) => {
+            // console.log(e.target.result)
+            setData({ ...data, photo: e.target.result });
+            console.log(image);
+            console.log(data);
+
+          }
+          )
+          // console.log("image")}
+
+        if (file.type.match("video.*")) return(
+          reader.onload = (e) => {
+            // console.log(e.target.result)
+            setData({ ...data, video: e.target.result });
+            console.log("video")
+            console.log(data);
+          }
+          )
+
+        // if(file.type.match('audio.*'))
+        //   return 'audio';
+
+        // // etc...
+
     }
   };
   const handleSubmit = async (e) => {
@@ -137,7 +161,7 @@ export default function Home() {
                   name="photo"
                   required
                   // multiple
-                  accept=".png, .jpg, .jpeg"
+                  accept=".png, .jpg, .jpeg, .mp4"
                   id="file"
                   onChange={handleChange}
                   className="max-lg:w-full max-md:ml-3"

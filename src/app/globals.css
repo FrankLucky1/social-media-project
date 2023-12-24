@@ -85,3 +85,11 @@ background: linear-gradient(to right, #faaca8, #ddd6f3); /* W3C, IE 10+/ Edge, F
   .slider.round:before {
     border-radius: 50%;
   }
+  #bg-video {
+    object-fit: cover;
+    width: 100vw;
+    height: auto;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}

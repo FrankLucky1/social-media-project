@@ -1,114 +1,128 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { hero,lady,group,group2,carpenter,customerCare,obama,blackman,woman } from "@/images";
+import {
+  hero,
+  lady,
+  group,
+  group2,
+  carpenter,
+  customerCare,
+  obama,
+  blackman,
+  woman,
+} from "@/images";
 import Link from "next/link";
 import { MdOutlineLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 import axios from "axios";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const page = () => {
- const url = process.env.NEXT_PUBLIC_API_BASE_URL
-  const [data, setData] = useState()
-  const [oneData, setOneData] = useState()
-  const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const [data, setData] = useState();
+  const [oneData, setOneData] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const handleClick = (e)=>{
   //   console.log(e.target.checked);
   // }
-  
+  const checkfile = () => {
+    const res = data.map();
+  };
+
   useEffect(() => {
     // console.log("hi");
-  const getContent = async ()=>{
-    try {
-      // console.log("hello");
-      setLoading(true)
-      const response = await axios.get(`${url}/posts`, {
-      headers: {
-          "Content-Type": "application/json",
-         },
-      })
-      console.log(response);
-      setData(response?.data?.data)
-     if(response?.data?.status === 200){ 
-      toast('Welcome to Sunset Sizzle ', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        })
-      setLoading(false)
-      }
-      // return response
-     } catch (error) {
-     if(error){
-      toast('Unable to get data, try again', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+    const getContent = async () => {
+      try {
+        // console.log("hello");
+        setLoading(true);
+        const response = await axios.get(`${url}/posts`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-        setLoading(false)
-     }
-     }finally{
-      setLoading(false)
-     }
-    }
-    getContent()
-  }, [])
-  
+        console.log(response);
+        setData(response?.data?.data);
+        if (response?.data?.status === 200) {
+          toast("Welcome to Sunset Sizzle ", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setLoading(false);
+        }
+        // return response
+      } catch (error) {
+        if (error) {
+          toast("Unable to get data, try again", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setLoading(false);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    getContent();
+  }, []);
+
   const handleClick = (e) => {
     console.log(e.target.id);
-    setIsOpen(true)
+    setIsOpen(true);
     const id = e.target.id;
 
-    const oneImage = data.filter(item => item._id === id)
+    const oneImage = data.filter((item) => item._id === id);
     console.log(oneImage[0]);
-    setOneData(oneImage)
-  }
+    setOneData(oneImage);
+  };
   return (
     <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-4 justify-start">
-       {isOpen && (
+      {isOpen && (
         <div
-        onClick={()=>setIsOpen(false)}
+          onClick={() => setIsOpen(false)}
           className="absolute w-full bg-black/90 flex text-center items-center justify-center h-full  z-[10000]"
         >
-          { oneData.map(item => (
-          <div className="p-3 flex flex-col items-center justify-center w-[350px]">
-          <Image
-              src={item?.photo}
-              id={item?._id}
-              width={350}
-              height={350}
-              alt="picture1"
-              className="w-auto max-h-[70vh]"
-            />
-            <div className="rounded-b-xl flex flex-col items-start justify-start bg-gray-700/80 max-md:h-[4rem] w-full px-2 xl:px-5 xl:py-4 py-3 gap-1 xl:gap-2">
-              <span className="flex max-md:text-xs items-start justify-start gap-2">
-               
-                <p className="capitalize xl:text-xl">Posted by: {item?.name}</p>
-              </span>
-              <p className="max-md:text-[10px] ">{item?.comment}</p>
+          {oneData.map((item) => (
+            <div className="p-3 flex flex-col items-center justify-center w-auto">
+              <Image
+                src={item?.photo}
+                id={item?._id}
+                width={350}
+                height={350}
+                alt="picture1"
+                className="min-w-auto h-full"
+              />
+              <div className="rounded-b-xl flex flex-col items-start justify-start bg-gray-700/80 h-auto w-full px-2 xl:px-5 xl:py-4 py-3 gap-1 xl:gap-2">
+                <span className="flex max-md:text-xs items-start justify-start gap-2">
+                  <p className="capitalize xl:text-xl">
+                    Posted by: {item?.name}
+                  </p>
+                </span>
+                <p className="max-md:text-[10px] ">{item?.comment}</p>
+              </div>
             </div>
-            </div>)
-            )}
- 
-        </div>)}
+          ))}
+        </div>
+      )}
       <div className="flex justify-between items-center w-full max-sm:py-4 py-2 xl:px-10 gap-3">
         <Link href={"/"}>Sunset Sizzle</Link>
         <div className="flex justify-center items-center gap-4">
           <div className="flex gap-1">
-          <MdOutlineLightMode className="text-2xl" />
+            <MdOutlineLightMode className="text-2xl" />
             <label className="switch">
               <input type="checkbox" onChange={handleClick} />
               <span className="slider round"></span>
@@ -124,7 +138,7 @@ const page = () => {
           />
         </div>
       </div>
-       {/* <div className="mb-5 w-full flex justify-center">
+      {/* <div className="mb-5 w-full flex justify-center">
           <input
             type="text"
             placeholder="search for uploads using name of staff"
@@ -135,35 +149,56 @@ const page = () => {
       {/* content */}
       <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-4 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
-        <div className="overflow-y-auto no-scrollbar columns-3 max-md:columns-2 space-y-4">
+        <div className="overflow-y-auto w-full no-scrollbar columns-3 max-md:columns-2 space-y-4">
+        
           {data?.length < 1 && !loading && (
             <p className="text-xl">No data available</p>
           )}
           {loading ? (
             <div>Loading...</div>
-          ) : (data?.map((item)=> (
-            <div key={item?._id}  id={item?._id} className="w-auto group h-auto rounded-xl relative ">
-            <Image
-              src={item?.photo}
-              id={item?._id}
-              onClick={(e)=>handleClick(e)}
-              width={500}
-              height={500}
-              alt="picture1"
-              className="rounded-xl max-sm:rounded-xl"
-            />
-            <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
-              <span className="flex max-md:text-xs items-center justify-start gap-2">
-                <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">{item.name[0]}</p>
-                <p className="capitalize xl:text-xl">{item?.name}</p>
-              </span>
-              <p className="max-md:text-[7px]">{item?.comment}</p>
-            </div>
-
-          </div>
-          )))
-        }
-       
+          ) : (
+            data?.map((item) => (
+              <div
+                key={item?._id}
+                id={item?._id}
+                className="w-auto group h-auto rounded-xl relative "
+              >
+               {item?.photo.length > 0 ? ( <Image
+                  src={item?.photo}
+                  id={item?._id}
+                  onClick={(e) => handleClick(e)}
+                  width={500}
+                  height={500}
+                  alt="picture1"
+                  className="rounded-xl max-sm:rounded-xl"
+                />) : (
+                  <div className="h-auto w-full relative">
+                  <video loop autoPlay muted id="bg-video" className="rounded-xl">
+                    <source src={item?.video} type="video/mp4" />
+                  </video>
+                  {/* <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+                    <span className="flex max-md:text-xs items-center justify-start gap-2">
+                      <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
+                      {item.name[0]}
+                      </p>
+                      <p className="capitalize xl:text-xl">{item?.name}</p>
+                    </span>
+                    <p className="max-md:text-[7px]">{item?.comment}</p>
+                  </div> */}
+                </div>
+                )}
+                <div className="absolute rounded-b-xl xl:rounded-b-xl group-hover:flex hidden max-lg:hover:flex flex-col bottom-0 bg-gray-500/80 h-auto w-full px-2 xl:px-5 xl:py-4 py-2">
+                  <span className="flex max-md:text-xs items-center justify-start gap-2">
+                    <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
+                      {item.name[0]}
+                    </p>
+                    <p className="capitalize xl:text-xl">{item?.name}</p>
+                  </span>
+                  <p className="max-md:text-[7px]">{item?.comment}</p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
