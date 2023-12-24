@@ -127,7 +127,7 @@ const page = () => {
           <div className="flex gap-1">
             <MdOutlineLightMode className="text-2xl" />
             <label className="switch">
-              <input type="checkbox" onChange={handleClick} />
+              <input type="checkbox" />
               <span className="slider round"></span>
             </label>
             <MdDarkMode className="text-2xl" />
