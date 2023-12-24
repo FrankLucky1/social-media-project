@@ -177,12 +177,12 @@ const page = () => {
                   />
                 ) : (
                   <div className="h-auto w-full relative">
-                    <video loop controls id="bg-video" className="rounded-t-xl">
+                    <video loop controls id="bg-video" className="rounded-t-xl w-full">
                       <source src={item?.video} type="video/mp4" />
                     </video>
-                    <div className="rounded-b-xl xl:rounded-b-xl group-hover:flex max-lg:hover:flex flex-col bottom-0 bg-gray-500/90 max-md:h-[3rem] w-full px-2 xl:px-5 xl:py-4 py-1">
+                    <div className="rounded-b-xl xl:rounded-b-xl group-hover:flex max-lg:justify-center max-lg:items-center max-lg:hover:flex flex-col bottom-0 bg-gray-500/90 max-md:h-auto w-full px-2 xl:px-5 xl:py-4 py-3">
                       <span className="flex max-md:text-xs items-center justify-start gap-2">
-                        <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[9px] h-4 w-4 font-semibold rounded-full">
+                        <p className="xl:h-7 xl:w-7 bg-slate-700 flex items-center justify-center capitalize text-white text-[12px] h-4 w-4 font-semibold rounded-full">
                           {item.name[0]}
                         </p>
                         <p className="capitalize xl:text-xl">{item?.name}</p>
