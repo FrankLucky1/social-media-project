@@ -87,7 +87,7 @@ background: linear-gradient(to right, #faaca8, #ddd6f3); /* W3C, IE 10+/ Edge, F
   }
   #bg-video {
     object-fit: cover;
-    width: 100vw;
+    width: auto;
     height: auto;
     top: 0;
     left: 0;
