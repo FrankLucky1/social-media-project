@@ -93,7 +93,7 @@ const page = () => {
     setOneData(oneImage);
   };
   return (
-    <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 px-2 justify-start">
+    <div className="w-full h-screen relative text-white bg-slate-950 flex flex-col items-center xl:pt-6 pb-1 px-2 justify-start">
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -150,7 +150,7 @@ const page = () => {
         </div> */}
 
       {/* content */}
-      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-10 px-2 flex flex-col justify-center items-start gap-3">
+      <div className="w-full overflow-y-auto bg-slate-900 rounded-2xl py-3 px-2 flex flex-col justify-center items-start gap-3">
         <h1>22, December 2023</h1>
         <div className="overflow-y-auto w-full no-scrollbar columns-3 max-md:columns-1 space-y-4">
           {!data && !loading && (
