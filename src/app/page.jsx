@@ -152,7 +152,7 @@ export default function Home() {
                   <FiUploadCloud className="text-6xl" />
                   click the box to upload your party experience
                   <p className="text-sm text-gray-400">
-                    upload size should not be more that 15mb*
+                    upload size should not be more than 12mb*
                   </p>
                 </label>
 
