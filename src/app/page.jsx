@@ -68,6 +68,7 @@ export default function Home() {
         },
       });
       console.log(response?.status);
+      console.log(data);
       if (response?.status === 201) {
         setLoading(false);
         setisOpen(false);
