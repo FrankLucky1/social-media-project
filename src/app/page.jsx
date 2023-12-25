@@ -161,7 +161,7 @@ export default function Home() {
                   name="photo"
                   required
                   // multiple
-                  accept=".png, .jpg, .jpeg, .mp4"
+                  accept=".png, .jpg, .jpeg, .mp4, .mov"
                   id="file"
                   onChange={handleChange}
                   className="max-lg:w-full max-md:ml-3"
