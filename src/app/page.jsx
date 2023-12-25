@@ -18,7 +18,7 @@ export default function Home() {
     name: "",
     comment: "",
     photo: "",
-    video: ""
+    video: "",
   });
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -27,39 +27,34 @@ export default function Home() {
       const file = e.target.files[0];
       const reader = new FileReader();
       const image = reader.readAsDataURL(file);
-     
 
-     
-        if (file.type.match("image.*")) return (
-          reader.onload = (e) => {
-            // console.log(e.target.result)
-            setData({ ...data, photo: e.target.result });
-            console.log(image);
-            console.log(data);
+      if (file.type.match("image.*"))
+        return (reader.onload = (e) => {
+          // console.log(e.target.result)
+          setData({ ...data, photo: e.target.result });
+          console.log(image);
+          console.log(data);
+        });
+      // console.log("image")}
 
-          }
-          )
-          // console.log("image")}
+      if (file.type.match("video.*"))
+        return (reader.onload = (e) => {
+          // console.log(e.target.result)
+          setData({ ...data, video: e.target.result });
+          console.log("video");
+          console.log(data);
+        });
 
-        if (file.type.match("video.*")) return(
-          reader.onload = (e) => {
-            // console.log(e.target.result)
-            setData({ ...data, video: e.target.result });
-            console.log("video")
-            console.log(data);
-          }
-          )
+      // if(file.type.match('audio.*'))
+      //   return 'audio';
 
-        // if(file.type.match('audio.*'))
-        //   return 'audio';
-
-        // // etc...
-
+      // // etc...
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(data);
     try {
       setLoading(true);
       const response = await axios.post(`${url}/create`, data, {
@@ -68,7 +63,6 @@ export default function Home() {
         },
       });
       console.log(response?.status);
-      console.log(data);
       if (response?.status === 201) {
         setLoading(false);
         setisOpen(false);
