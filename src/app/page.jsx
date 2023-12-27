@@ -31,7 +31,7 @@ export default function Home() {
       if (file.type.match("image.*"))
         return (reader.onload = (e) => {
           // console.log(e.target.result)
-          setData({ ...data, photo: e.target.result });
+          setData({ ...data, photo: e.target.result, video: '' });
           console.log(image);
           console.log(data);
         });
@@ -40,7 +40,7 @@ export default function Home() {
       if (file.type.match("video.*"))
         return (reader.onload = (e) => {
           // console.log(e.target.result)
-          setData({ ...data, video: e.target.result });
+          setData({ ...data, video: e.target.result, photo: '' });
           console.log("video");
           console.log(data);
         });

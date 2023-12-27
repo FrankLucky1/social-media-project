@@ -106,7 +106,7 @@ const page = () => {
                 id={item?._id}
                 width={350}
                 height={350}
-                alt="picture1"
+                alt={item?.name}
                 className="min-w-auto h-full"
               />
               <div className="rounded-b-xl flex flex-col items-start justify-start bg-gray-700/80 h-auto w-full px-2 xl:px-5 xl:py-4 py-3 gap-1 xl:gap-2">
@@ -172,7 +172,7 @@ const page = () => {
                     onClick={(e) => handleClick(e)}
                     width={500}
                     height={500}
-                    alt="picture1"
+                    alt={item?.name}
                     className="rounded-xl max-sm:rounded-xl"
                   />
                 ) : (
