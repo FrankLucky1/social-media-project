@@ -32,8 +32,8 @@ export default function Home() {
         return (reader.onload = (e) => {
           // console.log(e.target.result)
           setData({ ...data, photo: e.target.result, video: '' });
-          console.log(image);
-          console.log(data);
+          // console.log(image);
+          // console.log(data);
         });
       // console.log("image")}
 
@@ -41,8 +41,8 @@ export default function Home() {
         return (reader.onload = (e) => {
           // console.log(e.target.result)
           setData({ ...data, video: e.target.result, photo: '' });
-          console.log("video");
-          console.log(data);
+          // console.log("video");
+          // console.log(data);
         });
 
       // if(file.type.match('audio.*'))
@@ -54,7 +54,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(data);
+    // console.log(data);
     try {
       setLoading(true);
       const response = await axios.post(`${url}/create`, data, {
@@ -79,7 +79,7 @@ export default function Home() {
       }
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setisOpen(false);
       setLoading(false);
       if (error) {

@@ -43,9 +43,9 @@ const page = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(response);
+        // console.log(response);
         setData(response?.data?.data);
-        console.log(data?.length);
+        // console.log(data?.length);
         if (response?.data?.status === 200) {
           toast("Welcome to Sunset Sizzle ", {
             position: "top-center",
@@ -77,19 +77,19 @@ const page = () => {
       } finally {
         setLoading(false);
         
-        console.log(data);
+        // console.log(data);
       }
     };
     getContent();
   }, []);
 
   const handleClick = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     setIsOpen(true);
     const id = e.target.id;
 
     const oneImage = data.filter((item) => item._id === id);
-    console.log(oneImage[0]);
+    // console.log(oneImage[0]);
     setOneData(oneImage);
   };
   return (
